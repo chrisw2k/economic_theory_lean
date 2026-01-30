@@ -72,9 +72,11 @@ theorem update_update_same (a : G.ActionProfile) (i : N) (x y : G.A i) :
 /--
 Updating at different positions commutes.
 -/
-axiom update_update_comm (a : G.ActionProfile) (i j : N) (h : i ≠ j)
+theorem update_update_comm (a : G.ActionProfile) (i j : N) (h : i ≠ j)
     (x : G.A i) (y : G.A j) :
-    a[i ↦ x][j ↦ y] = a[j ↦ y][i ↦ x]
+    a[i ↦ x][j ↦ y] = a[j ↦ y][i ↦ x] := by
+  unfold update_action_at
+  exact Function.update_comm h x y a
 
 /--
 If an action profile already has value x at position i, updating it to x doesn't change it.
@@ -156,9 +158,11 @@ theorem update_update_same (a : G.ActionProfile) (i : N) (x y : G.A i) :
   · rfl
   · rfl
 
-axiom update_update_comm (a : G.ActionProfile) (i j : N) (h : i ≠ j)
+theorem update_update_comm (a : G.ActionProfile) (i j : N) (h : i ≠ j)
     (x : G.A i) (y : G.A j) :
-    a[i ↦ x][j ↦ y] = a[j ↦ y][i ↦ x]
+    a[i ↦ x][j ↦ y] = a[j ↦ y][i ↦ x] := by
+  unfold update_action_at
+  exact Function.update_comm h x y a
 
 theorem update_eq_self (a : G.ActionProfile) (i : N) :
     a[i ↦ a i] = a := by

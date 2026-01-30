@@ -69,8 +69,19 @@ def nash_equilibria : Set (G.ActionProfile) :=
 /--
 The two definitions of Nash equilibrium are equivalent.
 -/
-axiom nash_equiv (a : G.ActionProfile) :
-    is_nash_equilibrium a ↔ is_nash_equilibrium' a
+theorem nash_equiv (a : G.ActionProfile) :
+    is_nash_equilibrium a ↔ is_nash_equilibrium' a := by
+  unfold is_nash_equilibrium is_nash_equilibrium' best_response
+  simp only [Set.mem_setOf_eq]
+  constructor
+  · intro h i a'_i
+    have := h i a'_i
+    convert this using 2
+    exact update_eq_self a i
+  · intro h i a_i
+    have := h i a_i
+    convert this using 2
+    exact (update_eq_self a i).symm
 
 end StrategicGame
 
@@ -111,8 +122,19 @@ def nash_equilibria : Set (G.ActionProfile) :=
 /--
 The two definitions of Nash equilibrium are equivalent (payoff game version).
 -/
-axiom nash_equiv (a : G.ActionProfile) :
-    is_nash_equilibrium a ↔ is_nash_equilibrium' a
+theorem nash_equiv (a : G.ActionProfile) :
+    is_nash_equilibrium a ↔ is_nash_equilibrium' a := by
+  unfold is_nash_equilibrium is_nash_equilibrium' best_response
+  simp only [Set.mem_setOf_eq]
+  constructor
+  · intro h i a'_i
+    have := h i a'_i
+    convert this using 2
+    exact update_eq_self a i
+  · intro h i a_i
+    have := h i a_i
+    convert this using 2
+    exact (update_eq_self a i).symm
 
 /--
 Nash equilibrium means no profitable deviation.
@@ -139,8 +161,11 @@ theorem nash_implies_best_response (a : G.ActionProfile) (h : is_nash_equilibriu
 Nash equilibrium in the converted game corresponds to Nash equilibrium
 in terms of payoffs.
 -/
-axiom nash_payoff_equiv (a : G.ActionProfile) :
+theorem nash_payoff_equiv (a : G.ActionProfile) :
     @StrategicGame.is_nash_equilibrium N _ _ (payoff_to_preference G) a ↔
-    is_nash_equilibrium a
+    is_nash_equilibrium a := by
+  unfold StrategicGame.is_nash_equilibrium payoff_to_preference is_nash_equilibrium
+  simp only [ge_iff_le]
+  rfl
 
 end StrategicGamePayoff
