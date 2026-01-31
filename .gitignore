@@ -1,0 +1,23 @@
+# Ignore everything in home directory by default
+/*
+
+# But include game_theory_lib and its contents
+!/game_theory_lib/
+!/GameTheory/
+!/GameTheory.lean
+!/.gitignore
+
+# Ignore build artifacts
+.lake/
+build/
+*.olean
+
+# Ignore OS files
+.DS_Store
+*.swp
+*~
+
+# Ignore common temp files
+*.tmp
+*.bak
+*.backup
